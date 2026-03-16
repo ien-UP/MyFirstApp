@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MyFirstApp</string>
+    <string name="main_text">My First Application</string>
+    <string name="student_info">Student: Your Name\nGroup: Your Group</string>
+</resources>
