@@ -78,7 +78,7 @@ class PostRepositoryFileImpl(
         saveData()
     }
 
-    override fun save(post: Post) {
+    override fun save(post: Post): Post {
         posts = if (post.id == 0L) {
             // Создание нового поста
             val newPost = post.copy(
@@ -104,6 +104,7 @@ class PostRepositoryFileImpl(
         }
         _data.value = posts
         saveData()
+        return TODO("Provide the return value")
     }
 
     override fun removeById(id: Long) {

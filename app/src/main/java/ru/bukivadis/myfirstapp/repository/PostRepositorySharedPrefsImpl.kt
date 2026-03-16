@@ -71,7 +71,7 @@ class PostRepositorySharedPrefsImpl(
         saveData()
     }
 
-    override fun save(post: Post) {
+    override fun save(post: Post): Post {
         posts = if (post.id == 0L) {
             val newPost = post.copy(
                 id = nextId++,
@@ -95,6 +95,7 @@ class PostRepositorySharedPrefsImpl(
         }
         _data.value = posts
         saveData()
+        return TODO("Provide the return value")
     }
 
     override fun removeById(id: Long) {

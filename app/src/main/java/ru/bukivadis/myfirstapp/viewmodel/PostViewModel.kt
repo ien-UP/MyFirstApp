@@ -4,16 +4,33 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import ru.bukivadis.myfirstapp.db.AppDb
 import ru.bukivadis.myfirstapp.dto.Post
 import ru.bukivadis.myfirstapp.repository.PostRepository
 import ru.bukivadis.myfirstapp.repository.PostRepositoryFileImpl  // или другую реализацию
+import ru.bukivadis.myfirstapp.repository.PostRepositorySQLiteImpl
 
 class PostViewModel(application: Application) : AndroidViewModel(application) {
 
-    // Используем файловую реализацию с передачей контекста приложения
-    private val repository: PostRepository = PostRepositoryFileImpl(application)
 
+    // Используем SQLite репозиторий
+    private val repository: PostRepository = PostRepositorySQLiteImpl(
+        AppDb.getInstance(application).postDao
+    )
     val data: LiveData<List<Post>> = repository.getAll()
+
+    private val _draft = MutableLiveData("")
+    val draft: LiveData<String> = _draft
+
+    fun saveDraft(text: String) {
+        _draft.value = text
+    }
+
+    fun clearDraft() {
+        _draft.value = ""
+    }
+
+
 
     private val empty = Post(
         id = 0,

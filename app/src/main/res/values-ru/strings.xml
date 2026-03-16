@@ -25,5 +25,6 @@
     <string name="error_no_video_app">Не найдено приложение для просмотра видео</string>
     <string name="error_cannot_open_video">Не удалось открыть видео</string>
     <string name="share_post_via">Поделиться через</string>
+    <string name="post_removed">Пост удален</string>
 
 </resources>

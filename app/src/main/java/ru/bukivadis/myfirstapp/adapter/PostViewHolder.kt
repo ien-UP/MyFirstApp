@@ -2,6 +2,7 @@ package ru.bukivadis.myfirstapp.adapter
 
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.PopupMenu
@@ -13,26 +14,12 @@ import ru.bukivadis.myfirstapp.databinding.CardPostBinding
 import ru.bukivadis.myfirstapp.databinding.ItemVideoBinding
 import ru.bukivadis.myfirstapp.dto.Post
 import java.text.DecimalFormat
-import androidx.core.net.toUri
+import kotlin.collections.remove
 
 class PostViewHolder(
     private val binding: CardPostBinding,
     private val listener: OnPostInteractionListener
 ) : RecyclerView.ViewHolder(binding.root) {
-
-    private fun openVideo(videoUrl: String) {
-        try {
-            val intent = Intent(Intent.ACTION_VIEW, videoUrl.toUri())
-            // Проверяем, есть ли приложение, которое может обработать этот Intent
-            if (intent.resolveActivity(itemView.context.packageManager) != null) {
-                itemView.context.startActivity(intent)
-            } else {
-                Toast.makeText(itemView.context, R.string.error_no_video_app, Toast.LENGTH_SHORT).show()
-            }
-        } catch (e: Exception) {
-            Toast.makeText(itemView.context, R.string.error_cannot_open_video, Toast.LENGTH_SHORT).show()
-        }
-    }
 
     fun bind(post: Post) {
         binding.apply {
@@ -58,6 +45,7 @@ class PostViewHolder(
                 // Инфлейтим layout видео
                 val videoBinding = ItemVideoBinding.inflate(LayoutInflater.from(itemView.context), videoContainer, true)
 
+
                 // Обработка клика на весь блок видео
                 videoContainer.setOnClickListener {
                     openVideo(post.video!!)
@@ -73,7 +61,38 @@ class PostViewHolder(
             menu.setOnClickListener { view ->
                 showPopupMenu(view, post)
             }
+            // Обработка клика на всю карточку (кроме интерактивных элементов)
+            root.setOnClickListener {
+                listener.onPostClick(post)
+            }
+
+            // Обработчики для интерактивных элементов должны вызывать stopPropagation
+            // чтобы не срабатывал клик на root
+            like.setOnClickListener {
+                listener.onLike(post)
+                it.stopPropagation()  // предотвращаем всплытие события
+            }
+
+            share.setOnClickListener {
+                listener.onShare(post)
+                it.stopPropagation()
+            }
+
+            avatar.setOnClickListener {
+                listener.onAvatarClick(post)
+                it.stopPropagation()
+            }
+
+            menu.setOnClickListener { view ->
+                showPopupMenu(view, post)
+                // menu не должен вызывать onPostClick
+            }
         }
+
+    }
+    fun View.stopPropagation() {
+        isClickable = true
+        setOnClickListener { /* пустой обработчик, чтобы перехватить событие */ }
     }
 
 
@@ -124,4 +143,30 @@ class PostViewHolder(
             else -> count.toString()
         }
     }
+    private fun openVideo(videoUrl: String) {
+        try {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl))
+            // Получаем список приложений, которые могут обработать Intent
+            val packageManager = itemView.context.packageManager
+            val activities = packageManager.queryIntentActivities(intent, 0)
+            // Логируем результат
+            Log.d("VideoIntent", "queryIntentActivities: $activities")
+            val resolveInfo = intent.resolveActivity(packageManager)
+            Log.d("VideoIntent", "resolveActivity: $resolveInfo")
+            // Далее запуск как обычно...
+
+
+            // Проверяем, есть ли приложение, которое может обработать этот Intent
+
+            if (intent.resolveActivity(itemView.context.packageManager) != null) {
+                itemView.context.startActivity(intent)
+            } else {
+                Toast.makeText(itemView.context, R.string.error_no_video_app, Toast.LENGTH_SHORT).show()
+            }
+        } catch (e: Exception) {
+            Toast.makeText(itemView.context, R.string.error_cannot_open_video, Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
 }

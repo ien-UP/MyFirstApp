@@ -1,0 +1,17 @@
+package ru.bukivadis.myfirstapp.utils
+
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
+object DateUtils {
+    val format = SimpleDateFormat("d MMM в HH:mm", Locale("ru"))
+
+    fun formatDate(date: Date): String {
+        return format.format(date)
+    }
+
+    fun currentDateTime(): String {
+        return formatDate(Date())
+    }
+}

@@ -35,8 +35,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likedByMe = false,
             likes = 999,
             shares = 25,
-            views = 5700,
-            video = null
+            views = 5700
         ),
         Post(
             id = 2,
@@ -47,8 +46,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likedByMe = false,
             likes = 342,
             shares = 89,
-            views = 2300,
-            video = "https://rutube.ru/video/2854a399c9fc11e7e1793ea37f99caf2/"
+            views = 2300
         ),
         Post(
             id = 3,
@@ -59,8 +57,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likedByMe = true,
             likes = 1250,
             shares = 420,
-            views = 8900,
-            video = "https://rutube.ru/video/d3cf75b21716fee636f947f2bf36ce54/"
+            views = 8900
         ),
         Post(
             id = 4,
@@ -71,8 +68,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likedByMe = false,
             likes = 5678,
             shares = 1234,
-            views = 45000,
-            video = "https://rutube.ru/video/7a010e15530a8382cfc7c7b7a82cc1c7/"
+            views = 45000
         ),
         Post(
             id = 5,
@@ -83,8 +79,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likedByMe = false,
             likes = 2105,
             shares = 687,
-            views = 15400,
-            video = "https://rutube.ru/video/f205f1b66abd9f14079bef7cca59e5bb/"
+            views = 15400
         ),
         Post(
             id = 6,
@@ -95,8 +90,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likedByMe = true,
             likes = 4890,
             shares = 1320,
-            views = 67200,
-            video = "https://rutube.ru/video/18b9690f8d298ad54e73a8af0d5fa48c/"
+            views = 67200
         ),
         Post(
             id = 7,
@@ -107,8 +101,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likedByMe = false,
             likes = 3210,
             shares = 945,
-            views = 38500,
-            video = "https://rutube.ru/video/1e2d7c8b13a2f4bacefec4d597a47c54/"
+            views = 38500
         ),
         Post(
             id = 8,
@@ -119,8 +112,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likedByMe = true,
             likes = 1876,
             shares = 512,
-            views = 22300,
-            video = null,
+            views = 22300
         ),
         Post(
             id = 9,
@@ -131,8 +123,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likedByMe = false,
             likes = 6789,
             shares = 2011,
-            views = 89500,
-            video = "https://rutube.ru/video/af22ea10424506d17d00fd15ab79804f/"
+            views = 89500
         ),
         Post(
             id = 10,
@@ -143,8 +134,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likedByMe = true,
             likes = 2905,
             shares = 780,
-            views = 41200,
-            video = null
+            views = 41200
         ),
         Post(
             id = 11,
@@ -155,8 +145,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likedByMe = false,
             likes = 1543,
             shares = 390,
-            views = 19800,
-            video = "https://rutube.ru/channel/38517002/"
+            views = 19800
         ),
         Post(
             id = 12,
@@ -167,8 +156,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likedByMe = true,
             likes = 2345,
             shares = 610,
-            views = 32100,
-            video = "https://rutube.ru/video/d313e06d2ce1527871b153fdb49c0637/",
+            views = 32100
         ),
         Post(
             id = 13,
@@ -179,9 +167,20 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likedByMe = false,
             likes = 4021,
             shares = 888,
-            views = 56700,
-            video = "https://rutube.ru/video/8465fcf2649ba9e90162e734911fb6c5/"
+            views = 56700
+        ),
+        Post(
+            id = 14,
+            author = "Python Daily",
+            authorId = 15,
+            content = "Python 3.12 официально выпущен — и это не просто обновление, а прорыв в удобстве и производительности. Теперь вы можете использовать PEP 634 (структурное сопоставление с образцами) с вложенными кортежами и словарями, PEP 684 — улучшенные аннотации типов с поддержкой TypeVarTuple, а также PEP 701 — синтаксис f-строк с поддержкой двойных фигурных скобок внутри f-строк. Особенно впечатляет: компилятор теперь оптимизирует циклы на уровне байт-кода, что даёт до 15% прироста скорости в вычислительно нагруженных задачах. Для Data Science — поддержка NumPy 2.0 без преобразований. Обновляйтесь — и не забудьте проверить совместимость ваших зависимостей!",
+            published = "23 мая в 09:42",
+            likedByMe = true,
+            likes = 1250,
+            shares = 420,
+            views = 8900
         )
+
     )
 
 
@@ -226,7 +225,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
         _data.value = posts
     }
 
-    override fun save(post: Post) {
+    override fun save(post: Post): Post {
         if (post.id == 0L) {
             // Создание нового поста
             val newPost = post.copy(
@@ -252,6 +251,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
             }
         }
         _data.value = posts
+        return TODO("Provide the return value")
     }
 
     override fun removeById(id: Long) {

@@ -8,18 +8,7 @@
     android:padding="16dp"
     android:id="@+id/main"
     android:background="@color/background_light"
-    tools:context=".MainActivity">
-
-
-    <ImageView
-        android:id="@+id/avatar"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:contentDescription="@string/avatar_description"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.AppTheme.Circle"
-        tools:srcCompat="@drawable/ic_launcher_foreground" />
+    tools:context=".AppActivity">
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
@@ -27,6 +16,16 @@
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="avatar,menu,author,published" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/avatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/avatar_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.AppTheme.Circle"
+        app:srcCompat="@drawable/avatar" />
 
     <TextView
         android:id="@+id/content"
@@ -46,15 +45,6 @@
         \nМы не учим водить.
         \nМы учим выживать в мире, где машины умнее тебя, но ты всё ещё платишь за бензин." />
 
-    <FrameLayout
-        android:id="@+id/videoContainer"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintTop_toBottomOf="@id/content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/published"
@@ -123,7 +113,15 @@
             android:textColor="@color/text_secondary"
             android:text="tehnovid.ru" />
     </LinearLayout>
-
+    <FrameLayout
+        android:id="@+id/videoContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintTop_toBottomOf="@id/content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
     <LinearLayout
         android:id="@+id/actions"
         android:layout_width="0dp"
@@ -174,5 +172,8 @@
             style="@style/Widget.AppTheme.ShareButton" />
 
     </LinearLayout>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
