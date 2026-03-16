@@ -1,14 +1,16 @@
 package ru.bukivadis.myfirstapp.dto
 
+import androidx.activity.result.contract.ActivityResultContracts
+
 data class Post(
     val id: Long,
     val author: String,
-    val authorId: Long = 0,
+    val authorId: Long = 0,  // добавим для идентификации автора
     val content: String,
     val published: String,
     val likedByMe: Boolean = false,
     val likes: Int = 0,
     val shares: Int = 0,
     val views: Int = 0,
-    val video: String? = null  // ссылка на видео (опционально)
+    val video: String? = null
 )

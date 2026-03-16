@@ -23,6 +23,7 @@
     <string name="open_external">Open in an external application</string>
     <string name="error_no_video_app">No video viewing app found</string>
     <string name="error_cannot_open_video">Could not open the video</string>
-    <string name="share_post_via">Поделиться через</string>
+    <string name="share_post_via">Share via</string>
+    <string name="post_removed">post_removed</string>
 
 </resources>
