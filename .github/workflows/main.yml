@@ -1,0 +1,33 @@
+   name: CI
+
+   вкл:
+     толкать:
+       ветви: [ "день6" ]
+     pull_request:
+       ветви: [ "день6" ]
+
+   Вакансии:
+     строить:
+       работает на: ubuntu-20.04
+       
+       шаги:
+       - name: Код для оформления заказа
+           uses: actions/checkout@v3
+           
+       - name: настройка JDK 17
+           uses: actions/setup-java@v3
+           с:
+             версия Java: '17'
+             распределение: 'temurin'
+             
+       - name: Предоставьте разрешение на выполнение для gradlew
+           run: chmod +x gradlew
+           
+        - name: Сборка с помощью Gradle
+           run: ./gradlew build
+           
+       - name: Загрузить артефакт сборки
+           uses: actions/upload-artifact@v3
+           с:
+             name: app-debug.apk
+             path: app/build/outputs/apk/debug/app-debug.apk
